@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title> new document </title>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="1_animation.css"/>
+  <script>
+	//获得/设置元素的样式属性：2种办法：
+		//1. 设置*内联*样式：elem.style.属性名
+		//2. 获得最终应用到当前元素的所有样式属性：
+		//	var style对象=
+		//		getComputedStyle(elem)或elem.currentStyle
+		//		  IE9+或其它                     IE8   
+		//  style对象.属性
+	function $(id){
+		return document.getElementById(id);
+	}
+	//已知
+	var target1=800;//目标位置
+	var target2=700;//目标位置
+	var target3=600;//目标位置
+	var target4=500;//目标位置
+	var steps=100;//总步数
+	var duration=5000;//总时间ms
+	//计算：
+	var interval=duration/steps;//每步的时间间隔
+	function moveStep(){
+		for(var i=0;i<divs.length;i++){
+			var div=divs[i];
+			var left=
+				parseInt(getComputedStyle(div).left);
+				div.style.left=left+divSteps[i]+"px";
+		}
+		steps--;
+		if(steps==0){
+			clearInterval(timer);
+			steps=100;
+			for(var i=0;i<divs.length;i++){
+				divs[i].style.left="";
+			}
+		};
+	}
+	var timer=null;
+	var divSteps=[(target1-100)/steps,
+	              (target2-100)/steps,
+				  (target3-100)/steps,
+				  (target4-100)/steps
+	];
+	var divs=null;
+	window.onload=function(){	
+		divs=[$("d1"),$("d2"),$("d3"),$("d4"),];
+		timer=setInterval(moveStep,interval);
+	}
+  </script>
+ </head>
+
+ <body>
+	<div id="d1"></div>
+	<div id="d2"></div>
+	<div id="d3"></div>
+	<div id="d4"></div>
+ </body>
+</html>
